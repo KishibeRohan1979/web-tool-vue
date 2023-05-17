@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* html, body {
+    width: 100vw;
+    height: 100vh;
+} */
+
+#app {
+	margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.xcprogress {
+    width: 300px;
+    height: 20px;
+    background: #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.xcprogress-bar {
+    width: 0;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: cornflowerblue;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+    transition: width .6s ease;
+    border-radius: 4px;
+    animation: xcprogress-bar-anim 2s linear infinite;
+}
+
+.xcprogress-bar-value {
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    margin-right: 5px;
+}
+
+@keyframes xcprogress-bar-anim {
+    from {
+        background-position: 40px 0;
+    }
+
+    to {
+        background-position: 0 0;
+    }
+}
+
+.search-container {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.search-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #00aeec;
+    width: 300px;
+    font-size: 16px;
+    color: #00aeec;
+}
+
+.search-input:focus {
+    border-color: black;
+}
+
+.search-button {
+    margin-left: 5px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #00aeec;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cleardata-button {
+    margin-right: 70px;
+    padding: 2px 4px;
+    border-radius: 5px;
+    border: 2px solid #c82636;
+    background-color: white;
+    color: #c82636;
+    font-size: 5px;
+    cursor: pointer;
+}
+
+.feed-roll-btn {
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    font-weight: 400;
+    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif!important;
+    box-sizing: border-box;
+    transform: translate(10px);
+    opacity: .8;
+    position: relative;
+}
+
+.primary-btn {
+    -webkit-text-size-adjust: 100%;
+    font-weight: 400;
+    font-style: normal;
+    vertical-align: baseline;
+    line-height: 1.15;
+    overflow: visible;
+    text-transform: none;
+    -webkit-appearance: button;
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 12px;
+    border: 1px solid #f2f2f2;
+    transform-origin: center;
+    transition: .2s;
+    cursor: pointer;
+    background-color: #f2f2f2!important;
+    flex-direction: column;
+    padding: 3px;
+    position: relative;
+    z-index: 1;
+}
+
+.primary-btn svg {
+    transition: transform 1s;
+}
+
+.primary-btn.rotate svg {
+    transform: rotate(360deg);
+}
