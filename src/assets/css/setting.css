@@ -8,7 +8,7 @@
     height: 100vh;
 } */
 
-#app {
+#schedule {
 	margin-top: 30px;
     display: flex;
     justify-content: center;
@@ -83,7 +83,18 @@
     cursor: pointer;
 }
 
-.cleardata-button {
+.search-button-disabled {
+    margin-left: 5px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #d5d5d5;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cleared-button {
     margin-right: 70px;
     padding: 2px 4px;
     border-radius: 5px;
