@@ -47,19 +47,28 @@ export default {
     }
   },
   methods: {
-    change(progress) {
-      this.progress = progress;
-    },
     rotate() {
       this.deg += 180;
       axios.get(`/api/biliComment/getAsyncMsg?id=${this.oid}`)
           .then(response => {
             this.progress = response.data.data.progress;
             this.message = response.data.data.result.message;
+            this.equalStr(this.message);
           })
           .catch(error => {
             console.error(error);
           });
+    },
+    equalStr(message) {
+      if (message === "添加失败") {
+        this.progress = 0;
+        this.messageStyle = {
+          "width": "80px",
+          "height": "21px",
+          "color": "red",
+          "font-size": "16px"
+        }
+      }
     }
   },
   mounted() {
@@ -96,6 +105,8 @@ export default {
           "color": "red",
           "font-size": "10px"
         }
+      } else if (newVal === "添加失败") {
+        this.equalStr(newVal);
       } else {
         this.message = "爬取进度：";
         this.messageStyle = {
@@ -104,7 +115,6 @@ export default {
           "font-size": "16px"
         }
       }
-
     }
   }
 }
