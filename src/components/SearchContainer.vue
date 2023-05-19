@@ -8,7 +8,7 @@
 
 <script>
 import axios from 'axios';
-import settingBus from "../assets/js/settingBus";
+import settingBus from "../assets/js/DataBus";
 
 export default {
   data() {

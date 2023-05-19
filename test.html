@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head itemprop="video" itemscope="" itemtype="http://schema.org/VideoObject">
+    <meta name="referrer" content="no-referrer"/>
+    <title>测试头像</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <link rel="stylesheet" href="./src/assets/css/index.css">
+    <link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/map.css">
+    <link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/light_u.css">
+    <link id="__css-map__" rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/laputa-css/light.css">
+    <meta data-vue-meta="true" name="renderer" content="webkit">
+    <meta data-vue-meta="true" http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta data-vue-meta="true" property="og:image">
+    <meta data-vue-meta="true" property="og:width" content="846">
+    <meta data-vue-meta="true" property="og:height" content="566">
+    <link rel="stylesheet"
+          href="//s1.hdslb.com/bfs/static/jinkela/video/css/stardust-video.0.19425dee58234d23d1778d58b96e8c3dee4f33e7.css">
+    <meta id="bwp-meta" http-equiv="origin-trial"
+          content="AsYhOHIkXXMtPwo3CH76hiaok4uge630ApEiyIR69Y7aH+Qfv8IQxf8azG0zL4ktEQaJJPK1rXamih0mhbkPDwAAAAB2eyJvcmlnaW4iOiJodHRwczovL2JpbGliaWxpLmNvbTo0NDMiLCJmZWF0dXJlIjoiVW5yZXN0cmljdGVkU2hhcmVkQXJyYXlCdWZmZXIiLCJleHBpcnkiOjE2ODgwODMxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==">
+    <link rel="preconnect" href="https://xy121x205x162x53xy.mcdn.bilivideo.cn:4483/" crossorigin="anonymous"
+          data-injector="nano">
+    <link rel="preconnect" href="https://xy121x205x162x53xy.mcdn.bilivideo.cn:4483/" crossorigin="anonymous"
+          data-injector="nano">
+    <link rel="dns-prefetch" href="https://xy121x205x162x53xy.mcdn.bilivideo.cn:4483/" crossorigin="anonymous"
+          data-injector="nano">
+    <link rel="dns-prefetch" href="https://upos-sz-estgoss.bilivideo.com/" crossorigin="anonymous"
+          data-injector="nano">
+    <link rel="dns-prefetch" href="https://upos-sz-mirrorali.bilivideo.com/" crossorigin="anonymous"
+          data-injector="nano">
+    <link rel="dns-prefetch" href="https://xy121x205x162x53xy.mcdn.bilivideo.cn:4483/" crossorigin="anonymous"
+          data-injector="nano">
+    <link rel="dns-prefetch" href="https://upos-sz-estgoss.bilivideo.com/" crossorigin="anonymous"
+          data-injector="nano">
+    <link rel="dns-prefetch" href="https://upos-sz-mirrorali.bilivideo.com/" crossorigin="anonymous"
+          data-injector="nano">
+    <link rel="stylesheet" href="//s1.hdslb.com/bfs/seed/laputa-header/style.css?v=1682588206653">
+    <link type="text/css" rel="stylesheet" href="src/assets/css/jedate.css">
+    <script type="text/javascript" src="src/assets/js/jedate.min.js"></script>
+</head>
+<body class="harmony-font header-v3 win" style="overflow: auto;">
+<div id="app" class="app-v1" data-v-5dca1d44>
+    <div class="video-container-v1" data-v-5dca1d44>
+        <div class="left-container-under-player data-v-5dca1d44">
+            <div id="myapp"></div>
+        </div>
+    </div>
+</div>
+<div id="reply-view-image"></div>
+<script type="module" src="./src/assets/js/index.js"></script>
+<script type="module" src="./src/assets/js/reply-view-image.js"></script>
+<script type="text/javascript">
+    // 获取评论区图片展示区域
+    var replyList = document.getElementsByClassName("reply-list")[0];
+    var imageExhibitions = replyList.getElementsByClassName("image-exhibition");
+
+    // 获取放大区域
+    var replyViewImage = document.getElementsByClassName("reply-view-image")[0];
+
+    // 获取操作按钮
+    var closeContainer = replyViewImage.getElementsByClassName("close-container")[0];
+    var lastImage = replyViewImage.getElementsByClassName("last-image")[0];
+    var nextImage = replyViewImage.getElementsByClassName("next-image")[0];
+
+    // 获取图片预览区域
+    var previewList = replyViewImage.getElementsByClassName("preview-list")[0];
+
+    // 点击图片展示区域中的图片时的事件处理函数
+    function handleImageClick() {
+        // 显示放大区域
+        replyViewImage.style.display = "block";
+
+        // 获取被点击的图片的src
+        var clickedImgSrc = this.getElementsByTagName("img")[0].src;
+        var srcPrefix = "@120w_120h_1c_!web-comment-note.webp";
+        var clickedImgSrcWithoutPrefix = clickedImgSrc.slice(0, clickedImgSrc.indexOf(srcPrefix));
+
+        // 将被点击的图片的src赋值给放大区域中的图片
+        var showImageWrap = replyViewImage.getElementsByClassName("show-image-wrap")[0];
+        var imageContent = showImageWrap.getElementsByClassName("image-content")[0];
+        imageContent.src = clickedImgSrcWithoutPrefix;
+
+        // 清空预览列表
+        previewList.innerHTML = "";
+
+        // 生成图片预览列表
+        var imageItemWraps = this.parentNode.getElementsByClassName("image-item-wrap");
+        for (var j = 0; j < imageItemWraps.length; j++) {
+            var previewItemBox = document.createElement("div");
+            previewItemBox.classList.add("preview-item-box");
+            previewItemBox.style.width = "54px";
+            previewItemBox.style.height = "54px";
+
+            var previewItemWrap = document.createElement("div");
+            previewItemWrap.classList.add("preview-item-wrap");
+            previewItemWrap.classList.add("vertical");
+
+            var previewImg = document.createElement("img");
+            previewImg.src = imageItemWraps[j].getElementsByTagName("img")[0].src;
+            previewItemWrap.appendChild(previewImg);
+
+            previewItemBox.appendChild(previewItemWrap);
+            previewList.appendChild(previewItemBox);
+
+            // 判断当前预览图片是否为被点击的图片，如果是，则给该预览图片追加class "active"
+            if (previewImg.src === clickedImgSrc) {
+                previewItemBox.classList.add("active");
+            }
+
+            // 为每个预览图片绑定点击事件
+            previewItemBox.onclick = handlePreviewClick;
+        }
+    }
+
+    // 点击预览图片时的事件处理函数
+    function handlePreviewClick() {
+        // 获取被点击的预览图片的src
+        var clickedPreviewImgSrc = this.getElementsByTagName("img")[0].src;
+        var srcPrefix = "@120w_120h_1c_!web-comment-note.webp";
+        var clickedPreviewImgSrcWithoutPrefix = clickedPreviewImgSrc.slice(0, clickedPreviewImgSrc.indexOf(srcPrefix));
+
+        // 将被点击的预览图片的src赋值给放大区域中的图片
+        var showImageWrap = replyViewImage.getElementsByClassName("show-image-wrap")[0];
+        var imageContent = showImageWrap.getElementsByClassName("image-content")[0];
+        imageContent.src = clickedPreviewImgSrcWithoutPrefix;
+
+        // 切换预览图片的active状态
+        var previewItemBoxes = previewList.getElementsByClassName("preview-item-box");
+        for (var i = 0; i < previewItemBoxes.length; i++) {
+            previewItemBoxes[i].classList.remove("active");
+            if (previewItemBoxes[i].getElementsByTagName("img")[0].src === clickedPreviewImgSrc) {
+                previewItemBoxes[i].classList.add("active");
+            }
+        }
+    }
+
+    // 为评论区图片展示区域中的图片绑定点击事件
+    for (var i = 0; i < imageExhibitions.length; i++) {
+        var imageItemWraps = imageExhibitions[i].getElementsByClassName("image-item-wrap");
+        for (var j = 0; j < imageItemWraps.length; j++) {
+            imageItemWraps[j].onclick = handleImageClick;
+        }
+    }
+
+    // 点击关闭按钮时的事件处理函数
+    closeContainer.onclick = function () {
+        // 隐藏放大区域
+        replyViewImage.style.display = "none";
+    };
+
+    // 点击上一个按钮时的事件处理函数
+    lastImage.onclick = function () {
+        var activePreviewItemBox = previewList.getElementsByClassName("preview-item-box active")[0];
+        if (activePreviewItemBox && activePreviewItemBox.previousSibling) {
+            activePreviewItemBox.previousSibling.classList.add("active");
+            activePreviewItemBox.classList.remove("active");
+
+            // 获取上一个预览图片的src
+            var prevPreviewImgSrc = activePreviewItemBox.previousSibling.getElementsByTagName("img")[0].src;
+            var srcPrefix = "@120w_120h_1c_!web-comment-note.webp";
+            var prevPreviewImgSrcWithoutPrefix = prevPreviewImgSrc.slice(0, prevPreviewImgSrc.indexOf(srcPrefix));
+
+            // 将上一个预览图片的src赋值给放大区域中的图片
+            var showImageWrap = replyViewImage.getElementsByClassName("show-image-wrap")[0];
+            var imageContent = showImageWrap.getElementsByClassName("image-content")[0];
+            imageContent.src = prevPreviewImgSrcWithoutPrefix;
+        }
+    };
+
+    // 点击下一个按钮时的事件处理函数
+    nextImage.onclick = function () {
+        var activePreviewItemBox = previewList.getElementsByClassName("preview-item-box active")[0];
+        if (activePreviewItemBox && activePreviewItemBox.nextSibling) {
+            activePreviewItemBox.nextSibling.classList.add("active");
+            activePreviewItemBox.classList.remove("active");
+
+            // 获取下一个预览图片的src
+            var nextPreviewImgSrc = activePreviewItemBox.nextSibling.getElementsByTagName("img")[0].src;
+            var srcPrefix = "@120w_120h_1c_!web-comment-note.webp";
+            var nextPreviewImgSrcWithoutPrefix = nextPreviewImgSrc.slice(0, nextPreviewImgSrc.indexOf(srcPrefix));
+
+            // 将下一个预览图片的src赋值给放大区域中的图片
+            var showImageWrap = replyViewImage.getElementsByClassName("show-image-wrap")[0];
+            var imageContent = showImageWrap.getElementsByClassName("image-content")[0];
+            imageContent.src = nextPreviewImgSrcWithoutPrefix;
+        }
+    };
+
+</script>
+</body>
+</html>

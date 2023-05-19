@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import settingBus from "../assets/js/settingBus";
+import settingBus from "../assets/js/DataBus";
 import axios from "axios";
 
 export default {
