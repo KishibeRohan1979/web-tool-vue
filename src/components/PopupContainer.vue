@@ -8,9 +8,22 @@
         <input type="radio" name="sort" value="1" v-model="sortValue"> 按最新到发布时间排序<br>
         <input type="radio" name="sort" value="2" v-model="sortValue"> 按发布时间到最近排序<br>
         <input type="radio" name="sort" value="3" v-model="sortValue"> 时间范围
-        <input type="text" v-model="startTime" ref="startTime" readonly placeholder="开始日期(秒)">
-        到
-        <input type="text" v-model="endTime" ref="endTime" readonly placeholder="结束日期(秒)">
+<!--        <input type="text" v-model="startTime" ref="startTime" readonly placeholder="开始日期(秒)">-->
+        <div style="width: 380px">
+          <VueDatePicker
+              v-model="time"
+              locale="zh-CN"
+              :day-names="['一', '二', '三', '四', '五', '六', '七']"
+              enable-seconds
+              show-now-button
+              now-button-label="Now"
+              format="yyyy-MM-dd HH:mm:ss"
+              cancelText="X"
+              selectText="√"
+              range :partial-range="false"
+          />
+        </div>
+<!--        <input type="text" v-model="endTime" ref="endTime" readonly placeholder="结束日期(秒)">-->
       </label>
     </div>
     <div class="checkbox-container">
@@ -45,6 +58,8 @@
 
 <script>
 import searchBus from "../assets/js/DataBus.js";
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
   data() {
@@ -53,10 +68,9 @@ export default {
       checkbox: [],
       sortValue: "",
       selectField: "username",
-      startTime: "",
-      endTime: "",
+      time: null,
       fuzzyQueryText: "",
-      fieldSearchText: ""
+      fieldSearchText: "",
     }
   },
   mounted() {
@@ -67,17 +81,20 @@ export default {
   methods: {
     togglePopup() {
       this.isShowPop = false;
+      console.log(Math.floor(new Date(this.time[0]).getTime() / 1000));
       searchBus.emit('updateShow', this.isShowPop);
     },
     resetPopup() {
       this.checkbox = [];
       this.sortValue = "";
       this.selectField = "username";
-      this.startTime = "";
-      this.endTime = "";
+      this.time = null;
       this.fuzzyQueryText = "";
       this.fieldSearchText = "";
     }
+  },
+  components: {
+    VueDatePicker
   }
 }
 </script>
