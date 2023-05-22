@@ -8,7 +8,6 @@
         <input type="radio" name="sort" value="1" v-model="sortValue"> 按最新到发布时间排序<br>
         <input type="radio" name="sort" value="2" v-model="sortValue"> 按发布时间到最近排序<br>
         <input type="radio" name="sort" value="3" v-model="sortValue"> 时间范围
-<!--        <input type="text" v-model="startTime" ref="startTime" readonly placeholder="开始日期(秒)">-->
         <div style="width: 380px">
           <VueDatePicker
               v-model="time"
@@ -23,7 +22,6 @@
               range :partial-range="false"
           />
         </div>
-<!--        <input type="text" v-model="endTime" ref="endTime" readonly placeholder="结束日期(秒)">-->
       </label>
     </div>
     <div class="checkbox-container">
@@ -81,8 +79,8 @@ export default {
   methods: {
     togglePopup() {
       this.isShowPop = false;
-      console.log(Math.floor(new Date(this.time[0]).getTime() / 1000));
       searchBus.emit('updateShow', this.isShowPop);
+      console.log(Math.floor(new Date(this.time[0]).getTime() / 1000));
     },
     resetPopup() {
       this.checkbox = [];
@@ -95,6 +93,35 @@ export default {
   },
   components: {
     VueDatePicker
+  },
+  watch: {
+    sortValue(newVal) {
+      const itemToDelete = "searchTime";
+      const indexOfItem = this.checkbox.indexOf(itemToDelete);
+      if (indexOfItem === -1 && newVal !== "") {
+        this.checkbox.push("searchTime");
+      } else if (indexOfItem !== -1 && newVal === "") {
+        this.checkbox.splice(indexOfItem, 1);
+      }
+    },
+    fuzzyQueryText(newVal) {
+      const itemToDelete = "fuzzyQuery";
+      const indexOfItem = this.checkbox.indexOf(itemToDelete);
+      if (indexOfItem === -1 && newVal !== "") {
+        this.checkbox.push("fuzzyQuery");
+      } else if (indexOfItem !== -1 && newVal === "") {
+        this.checkbox.splice(indexOfItem, 1);
+      }
+    },
+    fieldSearchText(newVal) {
+      const itemToDelete = "fieldSearch";
+      const indexOfItem = this.checkbox.indexOf(itemToDelete);
+      if (indexOfItem === -1 && newVal !== "") {
+          this.checkbox.push("fieldSearch");
+      } else if (indexOfItem !== -1 && newVal === "") {
+        this.checkbox.splice(indexOfItem, 1);
+      }
+    }
   }
 }
 </script>
