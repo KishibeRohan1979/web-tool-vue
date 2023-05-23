@@ -223,6 +223,17 @@
                 </div>
                 <div class="bottom-line" data-v-7592db79=""></div>
               </div>
+
+              <!-- 评论区 -->
+              <div v-for="comment in comments" class="reply-item" :key="comment.rpid"
+                   :style="{
+                      '--13820460': comment.vipStatus === 1 ? '#FB7299' : '#61666D',
+                      '--1996face': ''
+                   }"
+              >
+
+              </div>
+
             </div>
           </div>
         </div>
@@ -232,11 +243,20 @@
 </template>
 
 <script>
+import searchBus from "../assets/js/DataBus";
+
 export default {
   data() {
     return{
+      comments: [],
 
     }
+  },
+  mounted() {
+    searchBus.on("updateCommentData", (data) => {
+      console.log(data);
+      this.comments = data.data;
+    });
   }
 }
 </script>

@@ -66,7 +66,7 @@ export default {
       axios.post(`/api/biliComment/getDocument`, request)
           .then(response => {
             // 请求成功的处理逻辑
-            console.log(response.data);
+            searchBus.emit('updateCommentData', response.data);
           })
           .catch(error => {
             // 请求失败的处理逻辑
