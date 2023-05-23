@@ -44,7 +44,6 @@ export default {
                       this.changeProgress((response.data.data));
                       // 进度大于等于100的时候判断结束
                       if (this.progress >= 100) {
-                        console.log(this.progress);
                         this.isDisabled = false;
                         this.searchButton = "search-button";
                         clearInterval(intervalId);
@@ -78,7 +77,6 @@ export default {
           oid = oid.trim();
           axios.get(`/api/biliComment/deleteIndex?bvid=${oid}`)
               .then(response => {
-                console.log(response.data);
                 alert(response.data.message);
               })
               .catch(error => {

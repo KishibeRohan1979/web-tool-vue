@@ -80,6 +80,12 @@ export default {
     togglePopup() {
       this.isShowPop = false;
       searchBus.emit('updateShow', this.isShowPop);
+      searchBus.emit('updateCheckbox', this.checkbox);
+      searchBus.emit('updateSortValue', this.sortValue);
+      searchBus.emit('updateSelectField', this.selectField);
+      searchBus.emit('updateTime', this.time);
+      searchBus.emit('updateFuzzyQueryText', this.fuzzyQueryText);
+      searchBus.emit('updateFieldSearchText', this.fieldSearchText);
       console.log(Math.floor(new Date(this.time[0]).getTime() / 1000));
     },
     resetPopup() {

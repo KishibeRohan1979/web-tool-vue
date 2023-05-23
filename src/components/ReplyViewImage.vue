@@ -1,5 +1,5 @@
 <template>
-  <div class="reply-view-image" data-v-76b724b7="" style="display: none;">
+  <div class="reply-view-image" data-v-76b724b7="" v-show="isShow">
     <!-- 操作区 -->
     <div class="operation-btn">
       <div class="operation-btn-icon close-container">
@@ -57,12 +57,11 @@
 export default {
   data() {
     return {
-
+      isShow: false,
     }
+  },
+  methods: {
+
   }
 }
 </script>
-
-<style scoped>
-
-</style>
