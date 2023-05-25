@@ -91,12 +91,12 @@
                                         fill: #F04C49;
                                       }
                                   </component>
-                            <rect class="st0 lv6" width="30" height="30"></rect>
-                            <path class="st1 lv6"
-                                  d="M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z">
+                          <rect class="st0 lv6" width="30" height="30"></rect>
+                          <path class="st1 lv6"
+                                d="M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z">
                             </path>
-                            <path class="st2 lv6"
-                                  d="M14,10c-0.4,0-0.6,0.3-0.6,0.6V11H1.6C1.2,11,1,11.3,1,11.6v7.8C1,19.8,1.3,20,1.6,20h18.8 c0.4,0,0.6-0.3,0.6-0.6v-8.8c0.1-0.3-0.2-0.6-0.5-0.6H14z M19.8,12.3c0,0.2-0.2,0.4-0.4,0.4H16v1.6h3.4c0.2,0,0.4,0.2,0.4,0.4v3.7 c0,0.2-0.2,0.4-0.4,0.4H15c-0.2,0-0.4-0.2-0.4-0.4v-6.8c0-0.2,0.2-0.4,0.4-0.4h4.4c0.2,0,0.4,0.2,0.4,0.4V12.3z M12.6,16.7 c0.1-0.1,0.1-0.2,0.1-0.4v-0.1v-3.4c0-0.2-0.2-0.4-0.4-0.4h-0.6c-0.2,0-0.4,0.2-0.4,0.4v3.3L10,17.3l-1.2-1.2v-3.4 c0-0.2-0.2-0.4-0.4-0.4H7.8c-0.2,0-0.4,0.2-0.4,0.4v3.5v0.1c0,0.2,0,0.4,0.1,0.4l2,2c0.1,0.1,0.5,0.1,0.5,0.1s0.4,0,0.5-0.1 L12.6,16.7z M6.1,18.9H2.6c-0.2,0-0.4-0.2-0.4-0.4v-5.8c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v4.7h2.4 c0.2,0,0.4,0.2,0.4,0.4v0.6C6.5,18.7,6.3,18.9,6.1,18.9z M18.4,17.4H16v-1.7h2.4V17.4z">
+                          <path class="st2 lv6"
+                                d="M14,10c-0.4,0-0.6,0.3-0.6,0.6V11H1.6C1.2,11,1,11.3,1,11.6v7.8C1,19.8,1.3,20,1.6,20h18.8 c0.4,0,0.6-0.3,0.6-0.6v-8.8c0.1-0.3-0.2-0.6-0.5-0.6H14z M19.8,12.3c0,0.2-0.2,0.4-0.4,0.4H16v1.6h3.4c0.2,0,0.4,0.2,0.4,0.4v3.7 c0,0.2-0.2,0.4-0.4,0.4H15c-0.2,0-0.4-0.2-0.4-0.4v-6.8c0-0.2,0.2-0.4,0.4-0.4h4.4c0.2,0,0.4,0.2,0.4,0.4V12.3z M12.6,16.7 c0.1-0.1,0.1-0.2,0.1-0.4v-0.1v-3.4c0-0.2-0.2-0.4-0.4-0.4h-0.6c-0.2,0-0.4,0.2-0.4,0.4v3.3L10,17.3l-1.2-1.2v-3.4 c0-0.2-0.2-0.4-0.4-0.4H7.8c-0.2,0-0.4,0.2-0.4,0.4v3.5v0.1c0,0.2,0,0.4,0.1,0.4l2,2c0.1,0.1,0.5,0.1,0.5,0.1s0.4,0,0.5-0.1 L12.6,16.7z M6.1,18.9H2.6c-0.2,0-0.4-0.2-0.4-0.4v-5.8c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v4.7h2.4 c0.2,0,0.4,0.2,0.4,0.4v0.6C6.5,18.7,6.3,18.9,6.1,18.9z M18.4,17.4H16v-1.7h2.4V17.4z">
                             </path>
                         </svg>
                       </i>
@@ -194,7 +194,7 @@
                                     </path>
                                 </svg>
                             </i>
-                            <!-- 点赞数 -->
+                          <!-- 点赞数 -->
                             <span data-v-7592db79="">2782</span>
                         </span>
                         <!-- 拉踩按钮 -->
@@ -226,12 +226,8 @@
 
               <!-- 评论区 -->
               <div v-for="comment in comments" class="reply-item" :key="comment.rpid"
-                   :style="{
-                      '--13820460': comment.vipStatus === 1 ? '#FB7299' : '#61666D',
-                      '--1996face': ''
-                   }"
-              >
-
+                   :style="getCommentStyles(comment)">
+                6
               </div>
 
             </div>
@@ -247,16 +243,102 @@ import searchBus from "../assets/js/DataBus";
 
 export default {
   data() {
-    return{
+    return {
       comments: [],
-
+      flag: 0
     }
   },
   mounted() {
     searchBus.on("updateCommentData", (data) => {
-      console.log(data);
+      console.log(data.data);
       this.comments = data.data;
     });
+  },
+  methods: {
+    getVipColor(comment) {
+      return comment.vipStatus === 1 ? "#FB7299" : "#61666D";
+    },
+    getMedalColorLevel(comment) {
+      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+        const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color_level, 1);
+        return `rgba(${rgbaColor.join(", ")})`;
+      } else {
+        return `rgba(NaN, NaN, NaN, NaN)`;
+      }
+    },
+    getMedalLevelBgColor(comment) {
+      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+        const rgbaColor = this.hexToRgba(comment.fansDetail.medal_level_bg_color, 1);
+        return `rgba(${rgbaColor.join(", ")})`;
+      } else {
+        return `rgba(NaN, NaN, NaN, NaN)`;
+      }
+    },
+    getMedalColorBorder(comment) {
+      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+        const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color_border, 0.1803921568627451);
+        return `rgba(${rgbaColor.join(", ")})`;
+      } else {
+        return `rgba(NaN, NaN, NaN, NaN)`;
+      }
+    },
+    getMedalColorEnd(comment) {
+      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+        const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color_end, 0.2);
+        return `rgba(${rgbaColor.join(", ")})`;
+      } else {
+        return `rgba(NaN, NaN, NaN, NaN)`;
+      }
+    },
+    getMedalColorName(comment) {
+      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+        const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color_name, 1);
+        return `rgba(${rgbaColor.join(", ")})`;
+      } else {
+        return `rgba(NaN, NaN, NaN, NaN)`;
+      }
+    },
+    getMedalColor(comment) {
+      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+        const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color, 0.2);
+        return `rgba(${rgbaColor.join(", ")})`;
+      } else {
+        return `rgba(NaN, NaN, NaN, NaN)`;
+      }
+    },
+    hexToRgba(hex, alpha) {
+      const r = (hex >> 16) & 255;
+      const g = (hex >> 8) & 255;
+      const b = hex & 255;
+      return [r, g, b, alpha];
+    },
+    getCardbgColor(comment) {
+      if (Object.keys(comment.userSailing).length !== 0 && (comment.userSailing).hasOwnProperty("cardbg")) {
+        return comment.userSailing.cardbg.fan.color;
+      } else {
+        return "";
+      }
+    },
+    getCommentStyles(comment) {
+      const styles = {
+        "--13820460": this.getVipColor(comment),  // --13820460: FB7299 是关于会员颜色；--13820460: 61666d 非会员
+        "--207ad404": "20px",  // --207ad404: 20px;是时间和点赞之间的距离
+        "--6fe79a06": "13px",   //--6fe79a06不清楚
+        "--9d00a1ba": "27px",  // --9d00a1ba是控制这个牌子多长，男女男是27px
+        "--36024698": "linear-gradient(90deg, " + this.getMedalColor(comment) + ", " + this.getMedalColorEnd(comment) + ")", //--36024698是底色，这个多选可以是渐变的，有两个值
+        "--433b963a": this.getMedalColorBorder(comment),  // --433b963a是边缘线的颜色
+        "--189a3ffb": this.getMedalColorName(comment),  // --189a3ffb是名字颜色
+        "--7c6dbc74": this.getMedalLevelBgColor(comment),  // --7c6dbc74是数字背景的颜色
+        "--4da3263c": this.getMedalColorLevel(comment),  // --4da3263c是等级数字的颜色
+      };
+      const cardbgColor = this.getCardbgColor(comment);
+      if (cardbgColor) {
+        // 如果this.getCardbgColor(comment)不为空，则将值添加到styles中
+        // --1996face 是关于右上角装饰的
+        styles["--1996face"] = cardbgColor;
+      }
+      return styles;
+    }
   }
 }
 </script>
