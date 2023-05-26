@@ -283,42 +283,11 @@
                       </div>
                       <!-- 用户等级 -->
                       <i :class="userLevel(comment)" data-v-7592db79=""
-                         style="width: 30px; height: 30px;">
-                        <svg version="1.1" id="图层_1"
-                             xmlns="http://www.w3.org/2000/svg"
-                             xmlns:xlink="http://www.w3.org/1999/xlink"
-                             x="0px" y="0px" viewBox="0 0 30 30"
-                             style="enable-background:new 0 0 30 30;"
-                             xml:space="preserve">
-                                  <component is="style" type="text/css">
-                                      .st0.lv6 {
-                                        fill: transparent;
-                                      }
-
-                                      .st1.lv6 {
-                                        fill-rule: evenodd;
-                                        clip-rule: evenodd;
-                                        fill: #FFFFFF;
-                                      }
-
-                                      .st2.lv6 {
-                                        fill-rule: evenodd;
-                                        clip-rule: evenodd;
-                                        fill: #F04C49;
-                                      }
-                                  </component>
-                          <rect class="st0 lv6" width="30" height="30"></rect>
-                          <path class="st1 lv6"
-                                d="M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z">
-                            </path>
-                          <path class="st2 lv6"
-                                d="M14,10c-0.4,0-0.6,0.3-0.6,0.6V11H1.6C1.2,11,1,11.3,1,11.6v7.8C1,19.8,1.3,20,1.6,20h18.8 c0.4,0,0.6-0.3,0.6-0.6v-8.8c0.1-0.3-0.2-0.6-0.5-0.6H14z M19.8,12.3c0,0.2-0.2,0.4-0.4,0.4H16v1.6h3.4c0.2,0,0.4,0.2,0.4,0.4v3.7 c0,0.2-0.2,0.4-0.4,0.4H15c-0.2,0-0.4-0.2-0.4-0.4v-6.8c0-0.2,0.2-0.4,0.4-0.4h4.4c0.2,0,0.4,0.2,0.4,0.4V12.3z M12.6,16.7 c0.1-0.1,0.1-0.2,0.1-0.4v-0.1v-3.4c0-0.2-0.2-0.4-0.4-0.4h-0.6c-0.2,0-0.4,0.2-0.4,0.4v3.3L10,17.3l-1.2-1.2v-3.4 c0-0.2-0.2-0.4-0.4-0.4H7.8c-0.2,0-0.4,0.2-0.4,0.4v3.5v0.1c0,0.2,0,0.4,0.1,0.4l2,2c0.1,0.1,0.5,0.1,0.5,0.1s0.4,0,0.5-0.1 L12.6,16.7z M6.1,18.9H2.6c-0.2,0-0.4-0.2-0.4-0.4v-5.8c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v4.7h2.4 c0.2,0,0.4,0.2,0.4,0.4v0.6C6.5,18.7,6.3,18.9,6.1,18.9z M18.4,17.4H16v-1.7h2.4V17.4z">
-                            </path>
-                        </svg>
+                         style="width: 30px; height: 30px;" v-html="printUserLevel(comment)">
                       </i>
 
                       <!-- up主标记 -->
-                      <i class="svg-icon up-web up-icon" data-v-7592db79=""
+                      <i v-if="isUpper(comment)" class="svg-icon up-web up-icon" data-v-7592db79=""
                          style="width: 24px; height: 24px;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -332,14 +301,14 @@
                       </i>
 
                       <!-- 粉丝牌子：粉丝牌子名称、等级 -->
-                      <div class="fan-badge" data-v-7592db79="">
+                      <div v-if="isUpperFan(comment)" class="fan-badge" data-v-7592db79="">
                         <!-- 粉丝牌子名称 -->
                         <div class="badge-name-wrap" data-v-7592db79="">
-                          <div class="badge-name" data-v-7592db79="">男女男</div>
+                          <div class="badge-name" data-v-7592db79="">{{comment.fansName}}</div>
                         </div>
                         <!-- 粉丝牌子等级 -->
                         <div class="badge-level-wrap" data-v-7592db79="">
-                          <div class="badge-level" data-v-7592db79="">12</div>
+                          <div class="badge-level" data-v-7592db79="">{{comment.fansLevel}}</div>
                         </div>
                       </div>
                     </div>
@@ -468,8 +437,11 @@ export default {
     getVipColor(comment) {
       return comment.vipStatus === 1 ? "#FB7299" : "#61666D";
     },
+    isUpperFan(comment) {
+      return comment.fansName !== "" && comment.fansLevel !== 0;
+    },
     getMedalColorLevel(comment) {
-      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+      if (this.isUpperFan(comment)) {
         const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color_level, 1);
         return `rgba(${rgbaColor.join(", ")})`;
       } else {
@@ -477,7 +449,7 @@ export default {
       }
     },
     getMedalLevelBgColor(comment) {
-      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+      if (this.isUpperFan(comment)) {
         const rgbaColor = this.hexToRgba(comment.fansDetail.medal_level_bg_color, 1);
         return `rgba(${rgbaColor.join(", ")})`;
       } else {
@@ -485,7 +457,7 @@ export default {
       }
     },
     getMedalColorBorder(comment) {
-      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+      if (this.isUpperFan(comment)) {
         const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color_border, 0.1803921568627451);
         return `rgba(${rgbaColor.join(", ")})`;
       } else {
@@ -493,7 +465,7 @@ export default {
       }
     },
     getMedalColorEnd(comment) {
-      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+      if (this.isUpperFan(comment)) {
         const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color_end, 0.2);
         return `rgba(${rgbaColor.join(", ")})`;
       } else {
@@ -501,7 +473,7 @@ export default {
       }
     },
     getMedalColorName(comment) {
-      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+      if (this.isUpperFan(comment)) {
         const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color_name, 1);
         return `rgba(${rgbaColor.join(", ")})`;
       } else {
@@ -509,7 +481,7 @@ export default {
       }
     },
     getMedalColor(comment) {
-      if (comment.fansName !== "" && comment.fansLevel !== 0) {
+      if (this.isUpperFan(comment)) {
         const rgbaColor = this.hexToRgba(comment.fansDetail.medal_color, 0.2);
         return `rgba(${rgbaColor.join(", ")})`;
       } else {
@@ -562,12 +534,12 @@ export default {
       if (Object.keys(comment.userSailing).length !== 0 && (comment.userSailing).hasOwnProperty("pendant")) {
         return {
           "width": "34px",
-          "height":"34px"
+          "height": "34px"
         };
       } else {
         return {
           "width": "40px",
-          "height":"40px"
+          "height": "40px"
         };
       }
     },
@@ -589,23 +561,55 @@ export default {
     },
     // 改变userLevel的class
     userLevel(comment) {
-      const level = comment.userLevel;
-      switch (level) {
-        case 0:
-          return "";
-        case 1:
-          return "";
-        case 2:
-          return "";
-        case 3:
-          return "";
-        case 4:
-          return "";
-        case 5:
-          return "";
-        case 6:
-          return "";
+      if (comment.isSeniorMember === 1) {
+        return "svg-icon level-hardcore user-level"
+      } else {
+        const level = comment.userLevel;
+        switch (level) {
+          case 0:
+            return "svg-icon level-0 user-level";
+          case 1:
+            return "svg-icon level-1 user-level";
+          case 2:
+            return "svg-icon level-2 user-level";
+          case 3:
+            return "svg-icon level-3 user-level";
+          case 4:
+            return "svg-icon level-4 user-level";
+          case 5:
+            return "svg-icon level-5 user-level";
+          case 6:
+            return "svg-icon level-6 user-level";
+        }
       }
+    },
+    // 打印等级样式
+    printUserLevel(comment) {
+      if (comment.isSeniorMember === 1) {
+        return "<svg version=\"1.1\" id=\"图层_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 30 30;\" xml:space=\"preserve\"><style type=\"text/css\">.st0.hardcore{fill:transparent;}.st1.hardcore{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}.st2.hardcore{fill:#F04C49;}</style><rect class=\"st0 hardcore\" width=\"30\" height=\"30\"></rect><path class=\"st1 hardcore\" d=\"M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z\"></path><path class=\"st2 hardcore\" d=\"M1.8,20.3h25.8c0.3,0,0.4,0,0.6-0.1c0.1-0.1,0.2-0.1,0.2-0.2c0.1-0.1,0.1-0.3,0.1-0.6v-8.9c0-0.3,0-0.4-0.1-0.6 c-0.1-0.1-0.1-0.2-0.2-0.2c-0.1-0.1-0.3-0.1-0.6-0.1H13.2c-0.3,0-0.4,0-0.6,0.1c-0.1,0.1-0.2,0.1-0.2,0.2c-0.1,0.1-0.1,0.3-0.1,0.6 v0.7H1.8c-0.3,0-0.4,0-0.6,0.1C1.1,11.4,1,11.5,1,11.6c-0.1,0.1-0.1,0.3-0.1,0.6v7.3c0,0.3,0,0.4,0.1,0.6c0.1,0.1,0.1,0.2,0.2,0.2 C1.3,20.3,1.5,20.3,1.8,20.3z\"></path><path class=\"st1 hardcore\" d=\"M21.2,15.6l3.1-4.3c0.2-0.3,0.6-0.1,0.6,0.2l-0.3,2.4h2c0.3,0,0.4,0.3,0.3,0.5l-3.1,4.3 c-0.2,0.3-0.6,0.1-0.6-0.2l0.3-2.4h-2C21.2,16.1,21,15.8,21.2,15.6z\"></path><path class=\"st1 hardcore\" d=\"M13.6,11.6c0-0.2,0.2-0.4,0.4-0.4h4.2c0.2,0,0.4,0.2,0.4,0.4v0.5c0,0.2-0.2,0.4-0.4,0.4H15v1.8h3.3 c0.2,0,0.4,0.2,0.4,0.4v3.7c0,0.2-0.2,0.4-0.4,0.4H14c-0.2,0-0.4-0.2-0.4-0.4V11.6z M15,15.7v1.8h2.3v-1.8H15z\"></path><path class=\"st1 hardcore\" d=\"M8.2,12.7c0.2,0,0.4,0.2,0.4,0.4v3.1l1,0.9l1-0.9v-3.1c0-0.2,0.2-0.4,0.4-0.4h0.5c0.2,0,0.4,0.2,0.4,0.4v3.6 c0,0.1,0,0.2-0.1,0.3l-2,1.8c-0.2,0.2-0.4,0.2-0.6,0l-2-1.8c-0.1-0.1-0.1-0.2-0.1-0.3v-3.6c0-0.2,0.2-0.4,0.4-0.4H8.2z\"></path><path class=\"st1 hardcore\" d=\"M3.1,12.7c0.2,0,0.4,0.2,0.4,0.4v4.3H6c0.2,0,0.4,0.2,0.4,0.4v0.5c0,0.2-0.2,0.4-0.4,0.4H2.6 c-0.2,0-0.4-0.2-0.4-0.4v-5.3c0-0.2,0.2-0.4,0.4-0.4H3.1z\"></path></svg>"
+      } else {
+        const level = comment.userLevel;
+        switch (level) {
+          case 0:
+            return "<svg version=\"1.1\" id=\"图层_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 30 30;\" xml:space=\"preserve\"><style type=\"text/css\">.st0.lv0{fill:transparent;}.st1.lv0{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}.st2.lv0{fill-rule:evenodd;clip-rule:evenodd;fill:#C0C0C0;}</style><rect class=\"st0 lv0\" width=\"30\" height=\"30\"></rect><path class=\"st1 lv0\" d=\"M20,11h-6v1H2v7.2h18V15V11z\"></path><path class=\"st2 lv0\" d=\"M20.5,10H14c-0.4,0-0.6,0.3-0.6,0.6V11H1.6C1.2,11,1,11.3,1,11.6v7.8C1,19.8,1.3,20,1.6,20h18.9 c0.4,0,0.6-0.3,0.6-0.6v-8.8C21,10.2,20.8,10,20.5,10z M19.9,18.2c0,0.4-0.3,0.6-0.6,0.6h-4.1c-0.4,0-0.6-0.3-0.6-0.6v-6.4 c0-0.4,0.3-0.6,0.6-0.6h4.1c0.4,0,0.6,0.3,0.6,0.6V18.2z M12.7,16.4v-0.1v-3.4c0-0.2-0.2-0.4-0.4-0.4h-0.6c-0.2,0-0.4,0.2-0.4,0.4 v3.3L10,17.3l-1.2-1.2v-3.4c0-0.2-0.2-0.4-0.4-0.4H7.8c-0.2,0-0.4,0.2-0.4,0.4v3.5v0.1c0,0.2,0,0.4,0.1,0.4l2,2 c0.1,0.1,0.5,0.1,0.5,0.1s0.4,0,0.5-0.1l2-2C12.5,16.6,12.7,16.5,12.7,16.4z M6.5,18.5c0,0.2-0.2,0.4-0.4,0.4H2.6 c-0.2,0-0.4-0.2-0.4-0.4v-5.8c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v4.7h2.4c0.2,0,0.4,0.2,0.4,0.4V18.5z M16.4,12.6h1.6 c0.2,0,0.4,0.2,0.4,0.4V17c0,0.2-0.2,0.4-0.4,0.4h-1.6c-0.2,0-0.4-0.2-0.4-0.4v-3.9C16,12.8,16.2,12.6,16.4,12.6z\"></path></svg>";
+          case 1:
+            return "";
+          case 2:
+            return "<svg version=\"1.1\" id=\"图层_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 30 30;\" xml:space=\"preserve\"><style type=\"text/css\">.st0.lv2{fill:transparent;}.st1.lv2{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}.st2.lv2{fill-rule:evenodd;clip-rule:evenodd;fill:#8BD29B;}</style><rect class=\"st0 lv2\" width=\"30\" height=\"30\"></rect><path class=\"st1 lv2\" d=\"M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z\"></path><path class=\"st2 lv2\" d=\"M14,10h6.5c0.3,0,0.6,0.3,0.5,0.6v8.8c0,0.3-0.2,0.6-0.6,0.6H1.6C1.3,20,1,19.8,1,19.4v-7.8 C1,11.3,1.2,11,1.6,11h11.8v-0.4C13.4,10.3,13.6,10,14,10z M19.4,15.8c0.2,0,0.4-0.2,0.4-0.4v-3.7c0-0.2-0.2-0.4-0.4-0.4H15 c-0.2,0-0.4,0.2-0.4,0.4v0.6c0,0.2,0.2,0.4,0.4,0.4h3.4v1.7H15c-0.2,0-0.4,0.2-0.4,0.4v3.7c0,0.2,0.2,0.4,0.4,0.4h4.4 c0.2,0,0.4-0.2,0.4-0.4v-0.6c0-0.2-0.2-0.4-0.4-0.4H16v-1.7H19.4z M12.7,16.4c0,0.1,0,0.3-0.1,0.4l-2.1,2c-0.1,0.1-0.5,0.1-0.5,0.1 s-0.4,0-0.5-0.1l-2-2c-0.1,0-0.1-0.3-0.1-0.4v-0.1v-3.5c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v3.4l1.2,1.2l1.2-1.2v-3.3 c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v3.4V16.4z M2.6,18.9h3.4c0.2,0,0.4-0.2,0.4-0.4v-0.6c0-0.2-0.2-0.4-0.4-0.4H3.7 v-4.7c0-0.2-0.2-0.4-0.4-0.4H2.6c-0.2,0-0.4,0.2-0.4,0.4v5.8C2.2,18.7,2.4,18.9,2.6,18.9z\"></path></svg>";
+          case 3:
+            return "<svg version=\"1.1\" id=\"图层_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 30 30;\" xml:space=\"preserve\"><style type=\"text/css\">.st0.lv3{fill:transparent;}.st1.lv3{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}.st2.lv3{fill-rule:evenodd;clip-rule:evenodd;fill:#7BCDEF;}</style><rect class=\"st0 lv3\" width=\"30\" height=\"30\"></rect><path class=\"st1 lv3\" d=\"M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z\"></path><path class=\"st2 lv3\" d=\"M13.4,10.6c0-0.3,0.2-0.6,0.6-0.6h6.5c0.3,0,0.6,0.3,0.5,0.6v8.8c0,0.3-0.2,0.6-0.6,0.6H1.6 C1.3,20,1,19.8,1,19.4v-7.8C1,11.3,1.2,11,1.6,11h11.8V10.6z M19.4,18.9c0.2,0,0.4-0.2,0.4-0.4v-6.9c0-0.2-0.2-0.4-0.4-0.4H15 c-0.2,0-0.4,0.2-0.4,0.4v0.6c0,0.2,0.2,0.4,0.4,0.4h3.4v1.7H15c-0.2,0-0.4,0.2-0.4,0.4v0.6c0,0.2,0.2,0.4,0.4,0.4h3.4v1.7H15 c-0.2,0-0.4,0.2-0.4,0.4v0.6c0,0.2,0.2,0.4,0.4,0.4H19.4z M12.7,16.4c0,0.1,0,0.3-0.1,0.4l-2.1,2c-0.1,0.1-0.5,0.1-0.5,0.1 s-0.4,0-0.5-0.1l-2-2c-0.1,0-0.1-0.3-0.1-0.4v-0.1v-3.5c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v3.4l1.2,1.2l1.2-1.2v-3.3 c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v3.4V16.4z M2.6,18.9h3.4c0.2,0,0.4-0.2,0.4-0.4v-0.6c0-0.2-0.2-0.4-0.4-0.4H3.7 v-4.7c0-0.2-0.2-0.4-0.4-0.4H2.6c-0.2,0-0.4,0.2-0.4,0.4v5.8C2.2,18.7,2.4,18.9,2.6,18.9z\"></path></svg>";
+          case 4:
+            return "<svg version=\"1.1\" id=\"图层_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 30 30;\" xml:space=\"preserve\"><style type=\"text/css\">.st0.lv4{fill:transparent;}.st1.lv4{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}.st2.lv4{fill-rule:evenodd;clip-rule:evenodd;fill:#FEBB8B;}</style><rect class=\"st0 lv4\" width=\"30\" height=\"30\"></rect><path class=\"st1 lv4\" d=\"M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z\"></path><path class=\"st2 lv4\" d=\"M13.4,10.6c0-0.3,0.2-0.6,0.6-0.6h6.5c0.3,0,0.6,0.3,0.5,0.6v8.8c0,0.3-0.2,0.6-0.6,0.6H1.6 C1.3,20,1,19.8,1,19.4v-7.8C1,11.3,1.2,11,1.6,11h11.8V10.6z M19.4,18.9c0.2,0,0.4-0.2,0.4-0.4v-6.9c0-0.2-0.2-0.4-0.4-0.4h-0.6 c-0.2,0-0.4,0.2-0.4,0.4v2.7H16v-2.7c0-0.2-0.2-0.4-0.4-0.4H15c-0.2,0-0.4,0.2-0.4,0.4v3.7c0,0.2,0.2,0.4,0.4,0.4h3.4v2.7 c0,0.2,0.2,0.4,0.4,0.4H19.4z M12.7,16.4c0,0.1,0,0.3-0.1,0.4l-2.1,2c-0.1,0.1-0.5,0.1-0.5,0.1s-0.4,0-0.5-0.1l-2-2 c-0.1-0.1-0.1-0.3-0.1-0.4v-0.1v-3.5c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v3.4l1.2,1.2l1.2-1.2v-3.3 c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v3.4V16.4z M2.6,18.9h3.4c0.2,0,0.4-0.2,0.4-0.4v-0.6c0-0.2-0.2-0.4-0.4-0.4H3.7 v-4.7c0-0.2-0.2-0.4-0.4-0.4H2.6c-0.2,0-0.4,0.2-0.4,0.4v5.8C2.2,18.7,2.4,18.9,2.6,18.9z\"></path></svg>";
+          case 5:
+            return "<svg version=\"1.1\" id=\"图层_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 30 30;\" xml:space=\"preserve\"><style type=\"text/css\">.st0.lv5{fill:transparent;}.st1.lv5{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}.st2.lv5{fill-rule:evenodd;clip-rule:evenodd;fill:#EE672A;}</style><rect class=\"st0 lv5\" width=\"30\" height=\"30\"></rect><path class=\"st1 lv5\" d=\"M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z\"></path><path class=\"st2 lv5\" d=\"M13.4,10.6c0-0.3,0.2-0.6,0.6-0.6h6.5c0.3,0,0.6,0.3,0.5,0.6v8.8c0,0.3-0.2,0.6-0.6,0.6H1.6 C1.3,20,1,19.8,1,19.4v-7.8C1,11.3,1.2,11,1.6,11h11.8V10.6z M19.4,12.7c0.2,0,0.4-0.2,0.4-0.4v-0.7c0-0.2-0.2-0.4-0.4-0.4H15 c-0.2,0-0.4,0.2-0.4,0.4v3.7c0,0.2,0.2,0.4,0.4,0.4h3.4v1.7H15c-0.2,0-0.4,0.2-0.4,0.4v0.6c0,0.2,0.2,0.4,0.4,0.4h4.4 c0.2,0,0.4-0.2,0.4-0.4v-3.7c0-0.2-0.2-0.4-0.4-0.4H16v-1.6H19.4z M12.7,16.4c0,0.1,0,0.3-0.1,0.4l-2.1,2c-0.1,0.1-0.5,0.1-0.5,0.1 s-0.4,0-0.5-0.1l-2-2c-0.1-0.1-0.1-0.3-0.1-0.4v-0.1v-3.5c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v3.4l1.2,1.2l1.2-1.2 v-3.3c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v3.4V16.4z M2.6,18.9h3.4c0.2,0,0.4-0.2,0.4-0.4v-0.6c0-0.2-0.2-0.4-0.4-0.4 H3.7v-4.7c0-0.2-0.2-0.4-0.4-0.4H2.6c-0.2,0-0.4,0.2-0.4,0.4v5.8C2.2,18.7,2.4,18.9,2.6,18.9z\"></path></svg>";
+          case 6:
+            return "<svg version=\"1.1\" id=\"图层_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 30 30\" style=\"enable-background:new 0 0 30 30;\" xml:space=\"preserve\"><style type=\"text/css\">.st0.lv6{fill:transparent;}.st1.lv6{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}.st2.lv6{fill-rule:evenodd;clip-rule:evenodd;fill:#F04C49;}</style><rect class=\"st0 lv6\" width=\"30\" height=\"30\"></rect><path class=\"st1 lv6\" d=\"M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z\"></path><path class=\"st2 lv6\" d=\"M14,10c-0.4,0-0.6,0.3-0.6,0.6V11H1.6C1.2,11,1,11.3,1,11.6v7.8C1,19.8,1.3,20,1.6,20h18.8 c0.4,0,0.6-0.3,0.6-0.6v-8.8c0.1-0.3-0.2-0.6-0.5-0.6H14z M19.8,12.3c0,0.2-0.2,0.4-0.4,0.4H16v1.6h3.4c0.2,0,0.4,0.2,0.4,0.4v3.7 c0,0.2-0.2,0.4-0.4,0.4H15c-0.2,0-0.4-0.2-0.4-0.4v-6.8c0-0.2,0.2-0.4,0.4-0.4h4.4c0.2,0,0.4,0.2,0.4,0.4V12.3z M12.6,16.7 c0.1-0.1,0.1-0.2,0.1-0.4v-0.1v-3.4c0-0.2-0.2-0.4-0.4-0.4h-0.6c-0.2,0-0.4,0.2-0.4,0.4v3.3L10,17.3l-1.2-1.2v-3.4 c0-0.2-0.2-0.4-0.4-0.4H7.8c-0.2,0-0.4,0.2-0.4,0.4v3.5v0.1c0,0.2,0,0.4,0.1,0.4l2,2c0.1,0.1,0.5,0.1,0.5,0.1s0.4,0,0.5-0.1 L12.6,16.7z M6.1,18.9H2.6c-0.2,0-0.4-0.2-0.4-0.4v-5.8c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v4.7h2.4 c0.2,0,0.4,0.2,0.4,0.4v0.6C6.5,18.7,6.3,18.9,6.1,18.9z M18.4,17.4H16v-1.7h2.4V17.4z\"></path></svg>";
+        }
+      }
+    },
+    // 判断是不是up主
+    isUpper(comment) {
+      return comment.userid === comment.upperUid;
     }
   }
 }
