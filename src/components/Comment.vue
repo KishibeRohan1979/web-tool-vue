@@ -316,43 +316,19 @@
                     <div class="root-reply" data-v-7592db79="">
                       <!-- 评论的内容论点，这里的span不要换行重排代码格式 -->
                       <span class="reply-content-container root-reply" data-v-7592db79="">
-                            <span class="reply-content"><i class="top-icon">置顶</i>BGM：<a
-                                class="jump-link search-word"
-                                data-url="//search.bilibili.com/all?from_source=webcommentline_search&amp;keyword=%E4%B9%B1%E4%B8%96%E5%B7%A8%E6%98%9F"
-                                data-search-key="乱世巨星">乱世巨星</a><i
-                                class="icon search-word"
-                                style="background-image: url(https://i0.hdslb.com/bfs/reply/9f3ad0659e84c96a711b88dd33f4bc2e945045e0.png)"></i><br>希望大家把正能量传播下去<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/b5a5898491944a4268360f2e7a84623149672eb6.png@48w_48h.webp"
-                                alt="[呲牙]"><br>喜欢视频的观众朋友记得点赞硬币支持一下<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/b5a5898491944a4268360f2e7a84623149672eb6.png@48w_48h.webp"
-                                alt="[呲牙]"><br>不要剧透<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png@48w_48h.webp"
-                                alt="[冷]">不要去不相关的视频刷我这样很不好<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png@48w_48h.webp"
-                                alt="[冷]"><br>再次谢谢各位的支持<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/431432c43da3ee5aab5b0e4f8931953e649e9975.png@48w_48h.webp"
-                                alt="[打call]"></span>
-                        </span>
+                        <span class="reply-content"><div v-if="comment.pictures"
+                            class="note-prefix"><img class="note-icon"
+                                                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTUiIHZpZXdCb3g9IjAgMCAxNCAxNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjAwMDAyIDMuNDE2NjlDNS41MzEwNiAzLjQxNjY5IDQuMjQ4NDQgMy40OTE0MSAzLjM0MzA0IDMuNTY0ODRDMi43MTM4IDMuNjE1ODYgMi4yMjYwOCA0LjA5NjU0IDIuMTcwMDIgNC43MjAxNEMyLjEwMzU2IDUuNDU5MzcgMi4wNDE2OSA2LjQzNDIzIDIuMDQxNjkgNy41MDAwMkMyLjA0MTY5IDguNTY1ODEgMi4xMDM1NiA5LjU0MDY3IDIuMTcwMDIgMTAuMjc5OUMyLjIyNjA4IDEwLjkwMzUgMi43MTM3NCAxMS4zODQyIDMuMzQyOTUgMTEuNDM1MkM0LjE3NTE5IDExLjUwMjcgNS4zMjYzNSAxMS41NzEzIDYuNjQ4MDggMTEuNTgxOUM2Ljg4OTcgMTEuNTgzOSA3LjA4Mzk5IDExLjc4MTMgNy4wODIwNSAxMi4wMjI5QzcuMDgwMSAxMi4yNjQ2IDYuODgyNjYgMTIuNDU4OCA2LjY0MTA0IDEyLjQ1NjlDNS4yOTM4NCAxMi40NDYxIDQuMTIxIDEyLjM3NjIgMy4yNzIyMyAxMi4zMDczQzIuMjIzNiAxMi4yMjIzIDEuMzkzMiAxMS40MTEyIDEuMjk4NTMgMTAuMzU4M0MxLjIzMDM4IDkuNjAwMTIgMS4xNjY2OSA4LjU5ODI5IDEuMTY2NjkgNy41MDAwMkMxLjE2NjY5IDYuNDAxNzUgMS4yMzAzOCA1LjM5OTkyIDEuMjk4NTMgNC42NDE3OUMxLjM5MzIgMy41ODg4MSAyLjIyMzcyIDIuNzc3NzMgMy4yNzIzMSAyLjY5MjdDNC4xOTU1NCAyLjYxNzgzIDUuNTAyMzYgMi41NDE2OSA3LjAwMDAyIDIuNTQxNjlDOC40OTc4MyAyLjU0MTY5IDkuODA0NzYgMi42MTc4NSAxMC43MjggMi42OTI3MkMxMS43NzY0IDIuNzc3NzUgMTIuNjA2OSAzLjU4ODUxIDEyLjcwMTYgNC42NDE0MkMxMi43NTM2IDUuMjIwMzkgMTIuODAzIDUuOTQxMjYgMTIuODIzNSA2LjczODg2QzEyLjgyOTcgNi45ODA0MSAxMi42Mzg5IDcuMTgxMjQgMTIuMzk3MyA3LjE4NzQzQzEyLjE1NTggNy4xOTM2MyAxMS45NTQ5IDcuMDAyODQgMTEuOTQ4OCA2Ljc2MTI5QzExLjkyODkgNS45ODU3NSAxMS44ODA4IDUuMjgzODYgMTEuODMwMSA0LjcxOTc4QzExLjc3NCA0LjA5NjM2IDExLjI4NjQgMy42MTU4OCAxMC42NTczIDMuNTY0ODZDOS43NTE4NiAzLjQ5MTQzIDguNDY5MTIgMy40MTY2OSA3LjAwMDAyIDMuNDE2NjlaTTQuMzc1MDIgNS44OTU4NUM0LjEzMzQgNS44OTU4NSAzLjkzNzUyIDYuMDkxNzMgMy45Mzc1MiA2LjMzMzM1QzMuOTM3NTIgNi41NzQ5OCA0LjEzMzQgNi43NzA4NSA0LjM3NTAyIDYuNzcwODVIOS42MjUwMkM5Ljg2NjY0IDYuNzcwODUgMTAuMDYyNSA2LjU3NDk4IDEwLjA2MjUgNi4zMzMzNUMxMC4wNjI1IDYuMDkxNzMgOS44NjY2NCA1Ljg5NTg1IDkuNjI1MDIgNS44OTU4NUg0LjM3NTAyWk00LjM3NTAyIDguMjI5MTlDNC4xMzM0IDguMjI5MTkgMy45Mzc1MiA4LjQyNTA2IDMuOTM3NTIgOC42NjY2OUMzLjkzNzUyIDguOTA4MzEgNC4xMzM0IDkuMTA0MTkgNC4zNzUwMiA5LjEwNDE5SDcuNTgzMzVDNy44MjQ5OCA5LjEwNDE5IDguMDIwODUgOC45MDgzMSA4LjAyMDg1IDguNjY2NjlDOC4wMjA4NSA4LjQyNTA2IDcuODI0OTggOC4yMjkxOSA3LjU4MzM1IDguMjI5MTlINC4zNzUwMlpNMTIuMTk2MSA4LjM2NzQxQzExLjc5NzQgNy45Njg3NSAxMS4xNTEgNy45Njg3NSAxMC43NTI0IDguMzY3NDFMOC40NDgzNyAxMC42NzE0QzguMjU2OTIgMTAuODYyOSA4LjE0OTM3IDExLjEyMjUgOC4xNDkzNyAxMS4zOTMzVjEyLjU5NzRDOC4xNDkzNyAxMi45NTE4IDguNDM2NjYgMTMuMjM5MSA4Ljc5MTA0IDEzLjIzOTFIOS45OTUxNkMxMC4yNjU5IDEzLjIzOTEgMTAuNTI1NiAxMy4xMzE1IDEwLjcxNyAxMi45NDAxTDEzLjAyMSAxMC42MzZDMTMuNDE5NyAxMC4yMzc0IDEzLjQxOTcgOS41OTEwMyAxMy4wMjEgOS4xOTIzN0wxMi4xOTYxIDguMzY3NDFaTTExLjM3MTEgOC45ODYxM0MxMS40MjgxIDguOTI5MTcgMTEuNTIwNCA4LjkyOTE3IDExLjU3NzMgOC45ODYxM0wxMi40MDIzIDkuODExMDhDMTIuNDU5MyA5Ljg2ODAzIDEyLjQ1OTMgOS45NjAzNyAxMi40MDIzIDEwLjAxNzNMMTAuMDk4MyAxMi4zMjEzQzEwLjA3MDkgMTIuMzQ4NyAxMC4wMzM4IDEyLjM2NDEgOS45OTUxNiAxMi4zNjQxSDkuMDI0MzdMOS4wMjQzNyAxMS4zOTMzQzkuMDI0MzcgMTEuMzU0NiA5LjAzOTc0IDExLjMxNzUgOS4wNjcwOSAxMS4yOTAxTDExLjM3MTEgOC45ODYxM1oiIGZpbGw9IiM5NDk5QTAiLz4KPC9zdmc+Cg=="><div>笔记</div></div><span v-html="getUserMessage(comment)"></span></span>
+                      </span>
                       <!-- 评论的图片 -->
                       <div class="image-exhibition" data-v-67b4dc9c="" data-v-7592db79="">
                         <!-- 评论楼层预览区 -->
                         <div class="preview-image-container" data-v-67b4dc9c="">
                           <!-- 一个div是一个图片 -->
-                          <div class="image-item-wrap vertical" data-v-67b4dc9c=""
-                               style="width: 120px; height: 120px;">
+                          <div class="image-item-wrap vertical" v-for="(imageItem, index) in comment.pictures" :key="imageItem.img_src" data-v-67b4dc9c=""
+                               style="width: 120px; height: 120px;" @click="openBigImage(comment.pictures, index)">
                             <img
-                                src="https://i0.hdslb.com/bfs/new_dyn/270ccbb1a49c846a7c3d92ec14ca17c14937182.png@120w_120h_1c_!web-comment-note.webp"
-                                data-v-67b4dc9c="">
-                          </div>
-                          <div class="image-item-wrap vertical" data-v-67b4dc9c=""
-                               style="width: 120px; height: 120px;">
-                            <img
-                                src="https://i0.hdslb.com/bfs/new_dyn/6896691e6bd5c9e5bc2d49e1e2b9223d4937182.png@120w_120h_1c_!web-comment-note.webp"
+                                :src="imageItem.img_src + '@120w_120h_1c_!web-comment-note.webp'"
                                 data-v-67b4dc9c="">
                           </div>
                         </div>
@@ -361,7 +337,7 @@
                       <div class="reply-info" data-v-7592db79="">
                         <!-- 时间 -->
                         <span class="reply-time"
-                              data-v-7592db79="">2023-04-04 18:33</span>
+                              data-v-7592db79="">{{this.formattedTimestamp(comment)}}</span>
                         <!-- 点赞 -->
                         <span class="reply-like" data-v-7592db79="">
                             <i class="svg-icon like use-color like-icon"
@@ -380,7 +356,7 @@
                                 </svg>
                             </i>
                           <!-- 点赞数 -->
-                            <span data-v-7592db79="">2782</span>
+                            <span data-v-7592db79="">{{comment.like}}</span>
                         </span>
                         <!-- 拉踩按钮 -->
                         <span class="reply-dislike" data-v-7592db79="">
@@ -401,7 +377,7 @@
                             </i>
                         </span>
                         <!-- 回复按钮 -->
-                        <span class="reply-btn" data-v-7592db79="">共x条回复</span>
+                        <span class="reply-btn" data-v-7592db79="">共{{comment.rcount}}条回复</span>
                       </div>
                     </div>
                   </div>
@@ -429,7 +405,6 @@ export default {
   },
   mounted() {
     searchBus.on("updateCommentData", (data) => {
-      console.log(data.data);
       this.comments = data.data;
     });
   },
@@ -610,6 +585,37 @@ export default {
     // 判断是不是up主
     isUpper(comment) {
       return comment.userid === comment.upperUid;
+    },
+    // 正常显示评论内容
+    getUserMessage(comment) {
+      let message = comment.thisUserMessage;
+      // let message = "BGM：乱世巨星\n希望大家把正能量传播下去[呲牙]\n喜欢视频的观众朋友记得点赞硬币支持一下[呲牙]\n不要剧透[冷]不要去不相关的视频刷我这样很不好[冷]\n再次谢谢各位的支持[打call]，]测试[";
+      const regex = /\[[^\[\]]*\]/g;
+      message = message.replace(/\n/g, "<br>").replace(regex, (thisMatch) =>
+          "<img" +
+          " class=\"emoji-small\"" +
+          " src=\"" + comment.messageEmote[thisMatch].url + "@48w_48h.webp\"" +
+          " alt=\"" + thisMatch + "\">");
+      return message;
+    },
+    // 时间戳转yyyy-MM-dd HH:mm:ss
+    formattedTimestamp(comment) {
+      const date = new Date(comment.ctime * 1000);
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+      const hours = ('0' + date.getHours()).slice(-2);
+      const minutes = ('0' + date.getMinutes()).slice(-2);
+      const seconds = ('0' + date.getSeconds()).slice(-2);
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    },
+    // 打开大图
+    openBigImage(pictures, index) {
+      let bigImage = {
+        "pictures": pictures,
+        "index": index,
+      }
+      searchBus.emit('updateBigImage', bigImage);
     }
   }
 }

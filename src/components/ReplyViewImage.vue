@@ -2,7 +2,7 @@
   <div class="reply-view-image" data-v-76b724b7="" v-show="isShow">
     <!-- 操作区 -->
     <div class="operation-btn">
-      <div class="operation-btn-icon close-container">
+      <div class="operation-btn-icon close-container" @click="closeBigImage">
         <i class="svg-icon close use-color" style="width: 14px; height: 14px;">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -12,7 +12,7 @@
           </svg>
         </i>
       </div>
-      <div class="operation-btn-icon last-image">
+      <div class="operation-btn-icon last-image" @click="lastImage">
         <i class="svg-icon left-arrow use-color" style="width: 22px; height: 22px;">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -22,7 +22,7 @@
           </svg>
         </i>
       </div>
-      <div class="operation-btn-icon next-image">
+      <div class="operation-btn-icon next-image" @click="nextImage">
         <i class="svg-icon right-arrow use-color" style="width: 22px; height: 22px;">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -34,19 +34,14 @@
       </div>
     </div>
     <!-- 图片内容 -->
-    <div class="show-image-wrap vertical">
-      <img class="image-content" src="">
+    <div ref="bigImageDiv" class="show-image-wrap vertical">
+      <img class="image-content" :src="getBigImageSrc()">
     </div>
     <!-- 小图预览栏 -->
     <div class="preview-list">
-      <div class="preview-item-box active" style="width: 54px; height: 54px;">
+      <div v-for="(picture, index) in this.pictures" :class="previewClass(index)" @click="changeImageIndex(index)" style="width: 54px; height: 54px;">
         <div class="preview-item-wrap vertical">
-          <img src="">
-        </div>
-      </div>
-      <div class="preview-item-box" style="width: 54px; height: 54px;">
-        <div class="preview-item-wrap vertical">
-          <img src="">
+          <img :src="picture.img_src + '@120w_120h_1c_!web-comment-note.webp'" >
         </div>
       </div>
     </div>
@@ -54,14 +49,78 @@
 </template>
 
 <script>
+import searchBus from "../assets/js/DataBus";
+
 export default {
   data() {
     return {
       isShow: false,
+      pictures: [],
+      imageIndex: 0,
+      bigImageDivSrc: ""
     }
   },
   methods: {
-
+    // 显示class
+    previewClass(index){
+      if (index === this.imageIndex) {
+        return "preview-item-box active"
+      } else {
+        return "preview-item-box"
+      }
+    },
+    // 关闭大图预览
+    closeBigImage() {
+      this.isShow = false;
+      this.pictures = [];
+      this.imageIndex = 0;
+      this.bigImageDivSrc = "";
+    },
+    // 获取大图地址
+    getBigImageSrc() {
+      if (this.pictures[this.imageIndex] === undefined) {
+        return ""
+      } else {
+        this.bigImageDivSrc = this.pictures[this.imageIndex].img_src;
+        return this.pictures[this.imageIndex].img_src;
+      }
+    },
+    // 下一张
+    nextImage() {
+      this.imageIndex++;
+      this.bigImageDivSrc = this.pictures[this.imageIndex].img_src;
+    },
+    // 上一张
+    lastImage() {
+      this.imageIndex--;
+      this.bigImageDivSrc = this.pictures[this.imageIndex].img_src;
+    },
+    // 点击预览图切换大图
+    changeImageIndex(index) {
+      this.imageIndex = index;
+      this.bigImageDivSrc = this.pictures[this.imageIndex].img_src;
+    }
+  },
+  mounted() {
+    searchBus.on("updateBigImage", (bigImage) => {
+      this.isShow = true;
+      this.pictures = bigImage.pictures;
+      this.imageIndex = bigImage.index;
+    });
+  },
+  watch: {
+    imageIndex(newData) {
+      if (newData < 0) {
+        this.imageIndex = 0;
+      }
+      if (newData >= this.pictures.length) {
+        this.imageIndex = this.pictures.length-1;
+      }
+    },
+    // 让大图回到顶部，其他没什么用了
+    bigImageDivSrc() {
+      this.$refs.bigImageDiv.scrollTop = 0;
+    }
   }
 }
 </script>
