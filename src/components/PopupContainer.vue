@@ -34,9 +34,9 @@
       <input type="checkbox" v-model="checkbox" value="fieldSearch" id="fieldSearch">
       <label for="fieldSearch">根据字段模糊查询:
         <select id="selectField" v-model="selectField">
-          <option value="username">用户名</option>
-          <option value="comment">评论内容</option>
-          <option value="bio">个人简介</option>
+          <option value="uname">用户名</option>
+          <option value="thisUserMessage">评论内容</option>
+          <option value="sign">个人简介</option>
         </select>
         <input type="text" v-model="fieldSearchText" placeholder="输入关键字">
       </label>
@@ -65,7 +65,7 @@ export default {
       isShowPop: false,
       checkbox: [],
       sortValue: "",
-      selectField: "username",
+      selectField: "uname",
       time: null,
       fuzzyQueryText: "",
       fieldSearchText: "",
@@ -86,12 +86,11 @@ export default {
       searchBus.emit('updateTime', this.time);
       searchBus.emit('updateFuzzyQueryText', this.fuzzyQueryText);
       searchBus.emit('updateFieldSearchText', this.fieldSearchText);
-      console.log(Math.floor(new Date(this.time[0]).getTime() / 1000));
     },
     resetPopup() {
       this.checkbox = [];
       this.sortValue = "";
-      this.selectField = "username";
+      this.selectField = "uname";
       this.time = null;
       this.fuzzyQueryText = "";
       this.fieldSearchText = "";

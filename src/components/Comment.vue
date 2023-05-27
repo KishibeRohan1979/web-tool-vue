@@ -7,32 +7,31 @@
           <div class="reply-warp" data-v-76b724b7 style="--64789772: 668px; --4c235e4a: 26px;">
             <!-- 整体的评论区 -->
             <div class="reply-list" data-v-864a238a data-v-76b724b7>
-              <!-- 评论区 -->
-              <div class="reply-item" data-v-7592db79="" data-v-864a238a=""
-                   style="--13820460: #FB7299; --36024698: linear-gradient(90deg, rgba(158,186,232,0.2), rgba(158,186,232,0.2)); --1996face: #7c9a3f; --f9d0e9da: undefinedpx; --73ea450c: undefinedpx; --433b963a: rgba(169,195,233,0.1803921568627451); --6fe79a06: 13px; --9d00a1ba: 27px; --189a3ffb: rgba(87,127,184,1); --7c6dbc74: rgba(255,255,255,1); --4da3263c: rgba(154,176,210,1); --207ad404: 20px;">
+              <!-- 置顶评论区，与评论区唯一的区别就是加了置顶标识，和请求的方法不一致 -->
+              <div v-if="topComment" class="reply-item"
+                   :style="getCommentStyles(topComment)">
                 <!-- 头像+评论整合 -->
                 <div class="root-reply-container" data-v-7592db79="">
                   <!-- 头像区 -->
-                  <div class="root-reply-avatar" data-user-id="29440965"
-                       data-root-reply-id="159256915664" data-v-7592db79="">
+                  <div class="root-reply-avatar" :data-user-id="topComment.userid"
+                       :data-root-reply-id="topComment.rpid" data-v-7592db79="">
                     <!-- 头像 -->
                     <div class="avatar" data-v-7592db79="">
                       <!-- 头像 -->
-                      <div class="bili-avatar" style="width: 48px;height:48px;">
+                      <div class="bili-avatar" :style="biliAvatarStyle(topComment)">
                         <img class="bili-avatar-img bili-avatar-face bili-avatar-img-radius"
-                             data-src="//i0.hdslb.com/bfs/face/f4d39ce4c3a5a306de2e5bb51fcae9a6c4f95215.jpg@160w_160h_1c_1s_!web-avatar-comment.webp"
+                             :data-src= "topComment.avatar + '@160w_160h_1c_1s_!web-avatar-comment.webp'"
                              alt=""
-                             src="//i0.hdslb.com/bfs/face/f4d39ce4c3a5a306de2e5bb51fcae9a6c4f95215.jpg@160w_160h_1c_1s_!web-avatar-comment.webp">
+                             :src="topComment.avatar + '@160w_160h_1c_1s_!web-avatar-comment.webp'">
                         <!-- 头像框 -->
-                        <div class="bili-avatar-pendent-dom">
+                        <div class="bili-avatar-pendent-dom" v-if="getUserSailingPendantImageEnhance(topComment)">
                           <img class="bili-avatar-img"
-                               data-src="https://i0.hdslb.com/bfs/face/b72dbf785e810e94fce2481265e71b6f16c64681.png@240w_240h_!web-avatar-comment.webp"
+                               :data-src="topComment.userSailing.pendant.image_enhance+'@240w_240h_!web-avatar-comment.webp'"
                                alt=""
-                               src="https://i0.hdslb.com/bfs/face/b72dbf785e810e94fce2481265e71b6f16c64681.png@240w_240h_!web-avatar-comment.webp">
+                               :src="topComment.userSailing.pendant.image_enhance+'@240w_240h_!web-avatar-comment.webp'">
                         </div>
                         <!-- 闪电标志 -->
-                        <span
-                            class="bili-avatar-icon bili-avatar-right-icon  bili-avatar-icon-personal bili-avatar-size-48"></span>
+                        <!--                        <span class="bili-avatar-icon bili-avatar-right-icon  bili-avatar-icon-personal bili-avatar-size-48"></span>-->
                       </div>
                     </div>
                   </div>
@@ -43,17 +42,17 @@
                       <!-- 显示装饰 -->
                       <div class="user-sailing" data-v-7592db79="">
                         <img class="user-sailing-img"
-                             src="https://i0.hdslb.com/bfs/garb/item/ed6cceb6e9dd30fb8581f3cac304ced4da9d9272.png@576w.webp"
+                             :src="getUserSailingCardbgImage(topComment)"
                              data-v-7592db79="">
                         <!-- 装饰的编号 -->
-                        <div class="user-sailing-text" data-v-7592db79="">
+                        <div class="user-sailing-text" data-v-7592db79="" v-if="isFan(topComment)">
                           <span class=" sailing-text"
                                 data-v-7592db79="">
                               NO.
                           </span>
                           <br data-v-7592db79="">
                           <span class="sailing-text" data-v-7592db79="">
-                              011634
+                              {{topComment.userSailing.cardbg.fan.num_desc}}
                           </span>
                         </div>
                       </div>
@@ -61,48 +60,17 @@
                     <!-- 用户名字及其渲染 -->
                     <div class="user-info" data-v-7592db79="">
                       <!-- 用户名字 -->
-                      <div class="user-name" data-user-id="29440965"
-                           data-root-reply-id="159256915664" data-v-7592db79="">
-                        超级小桀的日常
+                      <div class="user-name" :data-user-id="topComment.userid"
+                           :data-root-reply-id="topComment.rpid" data-v-7592db79="">
+                        {{topComment.uname}}
                       </div>
                       <!-- 用户等级 -->
-                      <i class="svg-icon level-6 user-level" data-v-7592db79=""
-                         style="width: 30px; height: 30px;">
-                        <svg version="1.1" id="图层_1"
-                             xmlns="http://www.w3.org/2000/svg"
-                             xmlns:xlink="http://www.w3.org/1999/xlink"
-                             x="0px" y="0px" viewBox="0 0 30 30"
-                             style="enable-background:new 0 0 30 30;"
-                             xml:space="preserve">
-                                  <component is="style" type="text/css">
-                                      .st0.lv6 {
-                                        fill: transparent;
-                                      }
-
-                                      .st1.lv6 {
-                                        fill-rule: evenodd;
-                                        clip-rule: evenodd;
-                                        fill: #FFFFFF;
-                                      }
-
-                                      .st2.lv6 {
-                                        fill-rule: evenodd;
-                                        clip-rule: evenodd;
-                                        fill: #F04C49;
-                                      }
-                                  </component>
-                          <rect class="st0 lv6" width="30" height="30"></rect>
-                          <path class="st1 lv6"
-                                d="M19.9,11.1h-5.6v1.1H2.1v6.7h17.8v-6.7h0V11.1z">
-                            </path>
-                          <path class="st2 lv6"
-                                d="M14,10c-0.4,0-0.6,0.3-0.6,0.6V11H1.6C1.2,11,1,11.3,1,11.6v7.8C1,19.8,1.3,20,1.6,20h18.8 c0.4,0,0.6-0.3,0.6-0.6v-8.8c0.1-0.3-0.2-0.6-0.5-0.6H14z M19.8,12.3c0,0.2-0.2,0.4-0.4,0.4H16v1.6h3.4c0.2,0,0.4,0.2,0.4,0.4v3.7 c0,0.2-0.2,0.4-0.4,0.4H15c-0.2,0-0.4-0.2-0.4-0.4v-6.8c0-0.2,0.2-0.4,0.4-0.4h4.4c0.2,0,0.4,0.2,0.4,0.4V12.3z M12.6,16.7 c0.1-0.1,0.1-0.2,0.1-0.4v-0.1v-3.4c0-0.2-0.2-0.4-0.4-0.4h-0.6c-0.2,0-0.4,0.2-0.4,0.4v3.3L10,17.3l-1.2-1.2v-3.4 c0-0.2-0.2-0.4-0.4-0.4H7.8c-0.2,0-0.4,0.2-0.4,0.4v3.5v0.1c0,0.2,0,0.4,0.1,0.4l2,2c0.1,0.1,0.5,0.1,0.5,0.1s0.4,0,0.5-0.1 L12.6,16.7z M6.1,18.9H2.6c-0.2,0-0.4-0.2-0.4-0.4v-5.8c0-0.2,0.2-0.4,0.4-0.4h0.6c0.2,0,0.4,0.2,0.4,0.4v4.7h2.4 c0.2,0,0.4,0.2,0.4,0.4v0.6C6.5,18.7,6.3,18.9,6.1,18.9z M18.4,17.4H16v-1.7h2.4V17.4z">
-                            </path>
-                        </svg>
+                      <i :class="userLevel(topComment)" data-v-7592db79=""
+                         style="width: 30px; height: 30px;" v-html="printUserLevel(topComment)">
                       </i>
 
                       <!-- up主标记 -->
-                      <i class="svg-icon up-web up-icon" data-v-7592db79=""
+                      <i v-if="isUpper(topComment)" class="svg-icon up-web up-icon" data-v-7592db79=""
                          style="width: 24px; height: 24px;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -116,14 +84,14 @@
                       </i>
 
                       <!-- 粉丝牌子：粉丝牌子名称、等级 -->
-                      <div class="fan-badge" data-v-7592db79="">
+                      <div v-if="isUpperFan(topComment)" class="fan-badge" data-v-7592db79="">
                         <!-- 粉丝牌子名称 -->
                         <div class="badge-name-wrap" data-v-7592db79="">
-                          <div class="badge-name" data-v-7592db79="">男女男</div>
+                          <div class="badge-name" data-v-7592db79="">{{topComment.fansName}}</div>
                         </div>
                         <!-- 粉丝牌子等级 -->
                         <div class="badge-level-wrap" data-v-7592db79="">
-                          <div class="badge-level" data-v-7592db79="">12</div>
+                          <div class="badge-level" data-v-7592db79="">{{topComment.fansLevel}}</div>
                         </div>
                       </div>
                     </div>
@@ -131,43 +99,19 @@
                     <div class="root-reply" data-v-7592db79="">
                       <!-- 评论的内容论点，这里的span不要换行重排代码格式 -->
                       <span class="reply-content-container root-reply" data-v-7592db79="">
-                            <span class="reply-content"><i class="top-icon">置顶</i>BGM：<a
-                                class="jump-link search-word"
-                                data-url="//search.bilibili.com/all?from_source=webcommentline_search&amp;keyword=%E4%B9%B1%E4%B8%96%E5%B7%A8%E6%98%9F"
-                                data-search-key="乱世巨星">乱世巨星</a><i
-                                class="icon search-word"
-                                style="background-image: url(https://i0.hdslb.com/bfs/reply/9f3ad0659e84c96a711b88dd33f4bc2e945045e0.png)"></i><br>希望大家把正能量传播下去<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/b5a5898491944a4268360f2e7a84623149672eb6.png@48w_48h.webp"
-                                alt="[呲牙]"><br>喜欢视频的观众朋友记得点赞硬币支持一下<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/b5a5898491944a4268360f2e7a84623149672eb6.png@48w_48h.webp"
-                                alt="[呲牙]"><br>不要剧透<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png@48w_48h.webp"
-                                alt="[冷]">不要去不相关的视频刷我这样很不好<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png@48w_48h.webp"
-                                alt="[冷]"><br>再次谢谢各位的支持<img
-                                class="emoji-small"
-                                src="//i0.hdslb.com/bfs/emote/431432c43da3ee5aab5b0e4f8931953e649e9975.png@48w_48h.webp"
-                                alt="[打call]"></span>
-                        </span>
+                        <span class="reply-content"><i class="top-icon">置顶</i><div v-if="topComment.pictures"
+                                                                                  class="note-prefix"><img class="note-icon"
+                                                                                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTUiIHZpZXdCb3g9IjAgMCAxNCAxNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjAwMDAyIDMuNDE2NjlDNS41MzEwNiAzLjQxNjY5IDQuMjQ4NDQgMy40OTE0MSAzLjM0MzA0IDMuNTY0ODRDMi43MTM4IDMuNjE1ODYgMi4yMjYwOCA0LjA5NjU0IDIuMTcwMDIgNC43MjAxNEMyLjEwMzU2IDUuNDU5MzcgMi4wNDE2OSA2LjQzNDIzIDIuMDQxNjkgNy41MDAwMkMyLjA0MTY5IDguNTY1ODEgMi4xMDM1NiA5LjU0MDY3IDIuMTcwMDIgMTAuMjc5OUMyLjIyNjA4IDEwLjkwMzUgMi43MTM3NCAxMS4zODQyIDMuMzQyOTUgMTEuNDM1MkM0LjE3NTE5IDExLjUwMjcgNS4zMjYzNSAxMS41NzEzIDYuNjQ4MDggMTEuNTgxOUM2Ljg4OTcgMTEuNTgzOSA3LjA4Mzk5IDExLjc4MTMgNy4wODIwNSAxMi4wMjI5QzcuMDgwMSAxMi4yNjQ2IDYuODgyNjYgMTIuNDU4OCA2LjY0MTA0IDEyLjQ1NjlDNS4yOTM4NCAxMi40NDYxIDQuMTIxIDEyLjM3NjIgMy4yNzIyMyAxMi4zMDczQzIuMjIzNiAxMi4yMjIzIDEuMzkzMiAxMS40MTEyIDEuMjk4NTMgMTAuMzU4M0MxLjIzMDM4IDkuNjAwMTIgMS4xNjY2OSA4LjU5ODI5IDEuMTY2NjkgNy41MDAwMkMxLjE2NjY5IDYuNDAxNzUgMS4yMzAzOCA1LjM5OTkyIDEuMjk4NTMgNC42NDE3OUMxLjM5MzIgMy41ODg4MSAyLjIyMzcyIDIuNzc3NzMgMy4yNzIzMSAyLjY5MjdDNC4xOTU1NCAyLjYxNzgzIDUuNTAyMzYgMi41NDE2OSA3LjAwMDAyIDIuNTQxNjlDOC40OTc4MyAyLjU0MTY5IDkuODA0NzYgMi42MTc4NSAxMC43MjggMi42OTI3MkMxMS43NzY0IDIuNzc3NzUgMTIuNjA2OSAzLjU4ODUxIDEyLjcwMTYgNC42NDE0MkMxMi43NTM2IDUuMjIwMzkgMTIuODAzIDUuOTQxMjYgMTIuODIzNSA2LjczODg2QzEyLjgyOTcgNi45ODA0MSAxMi42Mzg5IDcuMTgxMjQgMTIuMzk3MyA3LjE4NzQzQzEyLjE1NTggNy4xOTM2MyAxMS45NTQ5IDcuMDAyODQgMTEuOTQ4OCA2Ljc2MTI5QzExLjkyODkgNS45ODU3NSAxMS44ODA4IDUuMjgzODYgMTEuODMwMSA0LjcxOTc4QzExLjc3NCA0LjA5NjM2IDExLjI4NjQgMy42MTU4OCAxMC42NTczIDMuNTY0ODZDOS43NTE4NiAzLjQ5MTQzIDguNDY5MTIgMy40MTY2OSA3LjAwMDAyIDMuNDE2NjlaTTQuMzc1MDIgNS44OTU4NUM0LjEzMzQgNS44OTU4NSAzLjkzNzUyIDYuMDkxNzMgMy45Mzc1MiA2LjMzMzM1QzMuOTM3NTIgNi41NzQ5OCA0LjEzMzQgNi43NzA4NSA0LjM3NTAyIDYuNzcwODVIOS42MjUwMkM5Ljg2NjY0IDYuNzcwODUgMTAuMDYyNSA2LjU3NDk4IDEwLjA2MjUgNi4zMzMzNUMxMC4wNjI1IDYuMDkxNzMgOS44NjY2NCA1Ljg5NTg1IDkuNjI1MDIgNS44OTU4NUg0LjM3NTAyWk00LjM3NTAyIDguMjI5MTlDNC4xMzM0IDguMjI5MTkgMy45Mzc1MiA4LjQyNTA2IDMuOTM3NTIgOC42NjY2OUMzLjkzNzUyIDguOTA4MzEgNC4xMzM0IDkuMTA0MTkgNC4zNzUwMiA5LjEwNDE5SDcuNTgzMzVDNy44MjQ5OCA5LjEwNDE5IDguMDIwODUgOC45MDgzMSA4LjAyMDg1IDguNjY2NjlDOC4wMjA4NSA4LjQyNTA2IDcuODI0OTggOC4yMjkxOSA3LjU4MzM1IDguMjI5MTlINC4zNzUwMlpNMTIuMTk2MSA4LjM2NzQxQzExLjc5NzQgNy45Njg3NSAxMS4xNTEgNy45Njg3NSAxMC43NTI0IDguMzY3NDFMOC40NDgzNyAxMC42NzE0QzguMjU2OTIgMTAuODYyOSA4LjE0OTM3IDExLjEyMjUgOC4xNDkzNyAxMS4zOTMzVjEyLjU5NzRDOC4xNDkzNyAxMi45NTE4IDguNDM2NjYgMTMuMjM5MSA4Ljc5MTA0IDEzLjIzOTFIOS45OTUxNkMxMC4yNjU5IDEzLjIzOTEgMTAuNTI1NiAxMy4xMzE1IDEwLjcxNyAxMi45NDAxTDEzLjAyMSAxMC42MzZDMTMuNDE5NyAxMC4yMzc0IDEzLjQxOTcgOS41OTEwMyAxMy4wMjEgOS4xOTIzN0wxMi4xOTYxIDguMzY3NDFaTTExLjM3MTEgOC45ODYxM0MxMS40MjgxIDguOTI5MTcgMTEuNTIwNCA4LjkyOTE3IDExLjU3NzMgOC45ODYxM0wxMi40MDIzIDkuODExMDhDMTIuNDU5MyA5Ljg2ODAzIDEyLjQ1OTMgOS45NjAzNyAxMi40MDIzIDEwLjAxNzNMMTAuMDk4MyAxMi4zMjEzQzEwLjA3MDkgMTIuMzQ4NyAxMC4wMzM4IDEyLjM2NDEgOS45OTUxNiAxMi4zNjQxSDkuMDI0MzdMOS4wMjQzNyAxMS4zOTMzQzkuMDI0MzcgMTEuMzU0NiA5LjAzOTc0IDExLjMxNzUgOS4wNjcwOSAxMS4yOTAxTDExLjM3MTEgOC45ODYxM1oiIGZpbGw9IiM5NDk5QTAiLz4KPC9zdmc+Cg=="><div>笔记</div></div><span v-html="getUserMessage(topComment)"></span></span>
+                      </span>
                       <!-- 评论的图片 -->
                       <div class="image-exhibition" data-v-67b4dc9c="" data-v-7592db79="">
                         <!-- 评论楼层预览区 -->
                         <div class="preview-image-container" data-v-67b4dc9c="">
                           <!-- 一个div是一个图片 -->
-                          <div class="image-item-wrap vertical" data-v-67b4dc9c=""
-                               style="width: 120px; height: 120px;">
+                          <div class="image-item-wrap vertical" v-for="(imageItem, index) in topComment.pictures" :key="imageItem.img_src" data-v-67b4dc9c=""
+                               style="width: 120px; height: 120px;" @click="openBigImage(topComment.pictures, index)">
                             <img
-                                src="https://i0.hdslb.com/bfs/new_dyn/270ccbb1a49c846a7c3d92ec14ca17c14937182.png@120w_120h_1c_!web-comment-note.webp"
-                                data-v-67b4dc9c="">
-                          </div>
-                          <div class="image-item-wrap vertical" data-v-67b4dc9c=""
-                               style="width: 120px; height: 120px;">
-                            <img
-                                src="https://i0.hdslb.com/bfs/new_dyn/6896691e6bd5c9e5bc2d49e1e2b9223d4937182.png@120w_120h_1c_!web-comment-note.webp"
+                                :src="imageItem.img_src + '@120w_120h_1c_!web-comment-note.webp'"
                                 data-v-67b4dc9c="">
                           </div>
                         </div>
@@ -176,7 +120,7 @@
                       <div class="reply-info" data-v-7592db79="">
                         <!-- 时间 -->
                         <span class="reply-time"
-                              data-v-7592db79="">2023-04-04 18:33</span>
+                              data-v-7592db79="">{{this.formattedTimestamp(topComment)}}</span>
                         <!-- 点赞 -->
                         <span class="reply-like" data-v-7592db79="">
                             <i class="svg-icon like use-color like-icon"
@@ -195,7 +139,7 @@
                                 </svg>
                             </i>
                           <!-- 点赞数 -->
-                            <span data-v-7592db79="">2782</span>
+                            <span data-v-7592db79="">{{topComment.like}}</span>
                         </span>
                         <!-- 拉踩按钮 -->
                         <span class="reply-dislike" data-v-7592db79="">
@@ -216,7 +160,7 @@
                             </i>
                         </span>
                         <!-- 回复按钮 -->
-                        <span class="reply-btn" data-v-7592db79="">共x条回复</span>
+                        <span class="reply-btn" data-v-7592db79="">共{{topComment.rcount}}条回复</span>
                       </div>
                     </div>
                   </div>
@@ -400,12 +344,16 @@ export default {
   data() {
     return {
       comments: [],
-      flag: 0
+      topComment: null
     }
   },
   mounted() {
     searchBus.on("updateCommentData", (data) => {
       this.comments = data.data;
+      console.log(this.comments);
+    });
+    searchBus.on("updateTopCommentData", (data) => {
+      this.topComment = data.data[0];
     });
   },
   methods: {
@@ -620,7 +568,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -21,7 +21,7 @@ export default {
       isShow: false,
       checkbox: [],
       sortValue: "",
-      selectField: "username",
+      selectField: "uname",
       time: null,
       fuzzyQueryText: "",
       fieldSearchText: "",
@@ -33,6 +33,7 @@ export default {
     });
     searchBus.on("updateCheckbox", (checkbox) => {
       this.checkbox = checkbox;
+      console.log(this.checkbox);
     });
     searchBus.on("updateSortValue", (sortValue) => {
       this.sortValue = sortValue;
@@ -51,22 +52,72 @@ export default {
     });
   },
   methods: {
+    getStartTime() {
+      return Math.floor(new Date(this.time[0]).getTime() / 1000);
+    },
+    getEndTime() {
+      return Math.floor(new Date(this.time[1]).getTime() / 1000);
+    },
     togglePopup() {
       this.isShow = true;
       searchBus.emit('updateShowPop', this.isShow);
     },
     getSearchData() {
+      console.log(this.checkbox);
+      let termMap = {};
+      let matchMap = {};
+      if (this.checkbox.includes("badgeFans")) {
+        termMap.isUpperFansCard = true;
+        console.log(termMap);
+      }
+      if (this.checkbox.includes("fansOnly")) {
+        termMap.isContractor = true;
+      }
+      if (this.checkbox.includes("fieldSearch")) {
+        matchMap[this.selectField] = this.fieldSearchText;
+      }
+      const checkboxHasSearchTime = this.checkbox.includes("searchTime");
+      const checkboxHasSearchTimeAnd3 = checkboxHasSearchTime && this.sortValue === "3";
       const request = {
         "pageNum": 1,
         "pageSize": 50,
+        "orderField": checkboxHasSearchTime &&  this.sortValue !== "3"? "ctime" : "like",
+        "orderType": checkboxHasSearchTime && this.sortValue === "2" ? "asc" : "desc",
         "indexName": this.BVNumber,
         "type": "1",
-        ...(this.fuzzyQueryText !== '' && { queryString: this.fuzzyQueryText })
+        termMap,
+        matchMap,
+        ...(checkboxHasSearchTimeAnd3 && {
+          rangeField: "ctime",
+          startValue: this.getStartTime(),
+          endValue: this.getEndTime(),
+        }),
+        ...(this.fuzzyQueryText !== '' && { queryString: this.fuzzyQueryText }),
       };
       axios.post(`/api/biliComment/getDocument`, request)
           .then(response => {
             // 请求成功的处理逻辑
             searchBus.emit('updateCommentData', response.data);
+          })
+          .catch(error => {
+            // 请求失败的处理逻辑
+            console.error(error);
+          });
+      const topRequest = {
+        "indexName": this.BVNumber,
+        "pageNum": 1,
+        "pageSize": 1,
+        "type": "1",
+        "orderField": "like",
+        "orderType": "desc",
+        "termMap": {
+          "isTop": true
+        }
+      }
+      axios.post(`/api/biliComment/getDocument`, topRequest)
+          .then(response => {
+            // 请求成功的处理逻辑
+            searchBus.emit('updateTopCommentData', response.data);
           })
           .catch(error => {
             // 请求失败的处理逻辑
