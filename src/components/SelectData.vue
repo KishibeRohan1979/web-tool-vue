@@ -92,7 +92,7 @@ export default {
           startValue: this.getStartTime(),
           endValue: this.getEndTime(),
         }),
-        ...(this.fuzzyQueryText !== '' && { queryString: this.fuzzyQueryText }),
+        ...((this.checkbox.includes("fuzzyQuery") && this.fuzzyQueryText !== '') && { queryString: this.fuzzyQueryText }),
       };
       axios.post(`/api/biliComment/getDocument`, request)
           .then(response => {
